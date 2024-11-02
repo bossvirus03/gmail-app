@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hộp thư đến</title>
+    <link rel="stylesheet" href="stylesheets/style.css" />
+  </head>
+  <body
+    style="
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
+    "
+  >
+    <div
+      style="display: flex; justify-content: space-between; align-items: center"
+    >
+      <h2
+        class="inbox-page_title"
+        style="
+          text-align: center;
+          font-size: 2rem;
+          color: #2c3e50;
+          margin: 20px 0;
+        "
+      >
+        Hộp thư đến
+      </h2>
+      <div
+        class="inbox-page_action"
+        style="
+          text-align: center;
+          margin-bottom: 20px;
+          display: flex;
+          justify-content: center;
+          gap: 15px;
+        "
+      >
+        <a
+          href="/compose"
+          style="
+            background-color: #36e8ff;
+            color: #333;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+          "
+          onmouseover="this.style.backgroundColor='#2bbbd4';"
+          onmouseout="this.style.backgroundColor='#36e8ff';"
+          >Soạn email</a
+        >
+        <a
+          href="/logout"
+          style="
+            background-color: #f25c54;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+          "
+          onmouseover="this.style.backgroundColor='#d9453d';"
+          onmouseout="this.style.backgroundColor='#f25c54';"
+          >Đăng xuất</a
+        >
+      </div>
+    </div>
+    <table
+      class="inbox-page-table"
+      style="
+        width: 80%;
+        margin: 0 auto;
+        border-collapse: collapse;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+        background-color: #fff;
+      "
+    >
+      <thead>
+        <tr style="background-color: #36e8ff; color: #333; font-weight: bold">
+          <th style="padding: 10px">Người gửi</th>
+          <th style="padding: 10px">Chủ đề</th>
+          <th style="padding: 10px">Ngày nhận</th>
+          <th style="padding: 10px">Xóa</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% emails.forEach(email => { %>
+        <tr style="text-align: center">
+          <td style="padding: 10px; border-bottom: 1px solid #ddd">
+            <%= email.sender %>
+          </td>
+          <td style="padding: 10px; border-bottom: 1px solid #ddd">
+            <a
+              href="/email/<%= email.id %>"
+              style="text-decoration: none; color: #2c3e50"
+              ><%= email.subject %></a
+            >
+          </td>
+          <td style="padding: 10px; border-bottom: 1px solid #ddd">
+            <%= email.created_at %>
+          </td>
+          <td style="padding: 10px; border-bottom: 1px solid #ddd">
+            <button
+              style="
+                width: 80%;
+                padding: 0.5rem;
+                background-color: #f25c54;
+                color: white;
+                font-size: 1rem;
+                font-weight: bold;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+              "
+              onmouseover="this.style.backgroundColor='#d9453d';"
+              onmouseout="this.style.backgroundColor='#f25c54';"
+              onclick="deleteEmail(<%= email.id %>)"
+            >
+              Xóa
+            </button>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+    <script>
+      function deleteEmail(emailId) {
+        fetch(`/email/${emailId}`, {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ emailId }),
+        }).then((response) => {
+          if (response.ok) location.reload();
+        });
+      }
+    </script>
+  </body>
+</html>

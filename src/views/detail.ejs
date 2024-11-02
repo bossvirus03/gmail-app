@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Chi tiết Email</title>
+  </head>
+  <body
+    style="
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      color: #333;
+      margin: 0;
+      padding: 20px;
+    "
+  >
+    <div
+      style="
+        max-width: 600px;
+        margin: auto;
+        background: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      "
+    >
+      <h2 style="color: #2c3e50; text-align: center; font-size: 24px">
+        Chi tiết Email
+      </h2>
+      <p style="font-size: 16px; line-height: 1.6">
+        <strong>Người gửi:</strong>
+        <span style="color: #555"><%= email.senderName %></span>
+      </p>
+      <p style="font-size: 16px; line-height: 1.6">
+        <strong>Người nhận:</strong>
+        <span style="color: #555"><%= email.receiver %></span>
+      </p>
+      <p style="font-size: 16px; line-height: 1.6">
+        <strong>Chủ đề:</strong>
+        <span style="color: #555"><%= email.subject %></span>
+      </p>
+      <p style="font-size: 16px; line-height: 1.6">
+        <strong>Nội dung:</strong>
+      </p>
+      <p
+        style="
+          font-size: 16px;
+          line-height: 1.6;
+          color: #333;
+          background: #f0f0f0;
+          padding: 15px;
+          border-radius: 5px;
+        "
+      >
+        <%= email.body %>
+      </p>
+
+      <% if (email.attachment) { %>
+      <p style="font-size: 16px; line-height: 1.6">
+        <strong>Đính kèm:</strong>
+        <a
+          href="<%= email.attachment %>"
+          style="color: #3498db; text-decoration: none"
+          >Tải xuống</a
+        >
+      </p>
+      <% } %>
+
+      <div style="text-align: center; margin-top: 20px">
+        <a
+          href="/inbox"
+          style="
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: #ffffff;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+          "
+          >Quay lại Hộp thư đến</a
+        >
+      </div>
+    </div>
+  </body>
+</html>
